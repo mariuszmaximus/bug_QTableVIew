@@ -42,39 +42,20 @@ int main(int argc, char *argv[]) {
     // Ustawianie widoku tabeli jako centralnego widgetu
     mainWindow.setCentralWidget(tableView);
 
-    std::string s = R"style(
+    std::string s1 = R"style(
+        )style";  // FAIL 
+    std::string s2 = R"style()style"; // OK 
+    std::string s3 = R"style( )style"; // FAIL
 
-        /* dodalem przedrostek, tych styli nie kasowac !!! */
-        Q1QWidget {  font: bold 20px;  }
-        Q2QWidget { color: black; font: 24pt  'Oswald'; }
-        Q3QWidget { font: 14pt  'Montserrat'; }
+std::string s4 = R"style(
+    QTableView {
+        border: 1px solid black;
+        gridline-color: black;
+    }
+)style"; // FAIL      
 
+    app.setStyleSheet(QString::fromStdString(s4));
 
-        /*
-            QQQQPushButton {  outline: none }
-            QPushButton{ background-color: blue; }
-            QPushButton:disabled{ background-color: yellow; }
-            QPushButton:pressed{ background-color: orange; }
-            QPushButton:focus:pressed{ background-color: black; }
-            QPushButton:focus{ background-color: green; }
-            QPushButton:hover{ background-color: red; }
-            QPushButton:checked{ background-color: pink; }
-        */
-
-        /* wylaczam globalnie w calej aplikacji outline dla QPushButton */
-        QPushButton { outline: none; }
-
-
-        /*Menu bar Tool bar Menu and Menu Items*/
-        QMenuBar
-        {
-            background-color: rgb(31, 35, 36); /* rgb(31, 35, 36); */
-            padding: 1px;
-            /* font-size: 16px; */
-            /* min-height: 90px; */
-        }
-        )style";
-    app.setStyleSheet(QString::fromStdString(s));
 
     // Wyświetlanie głównego okna
     mainWindow.resize(800, 400);
